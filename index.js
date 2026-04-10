@@ -6,7 +6,7 @@ formElement.addEventListener("submit", async (event) => {
     event.preventDefault(); 
     resultsElement.innerHTML = "";
     const inputValue = inputElement.value;
-    const response = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=e18454d7&s=${inputValue}`,);
+    const response = await fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=e18454d7&s=${inputValue}`,);
 
     const data = await response.json();
     if (data.Response === "False") {

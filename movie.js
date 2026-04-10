@@ -1,4 +1,4 @@
-const API_URL = "http://www.omdbapi.com/?i=tt3896198&apikey=e18454d7";
+const API_URL = "https://www.omdbapi.com/?i=tt3896198&apikey=e18454d7";
 
 async function fetchMovieById(imdbID) {
     const response = await fetch(`${API_URL}&i=${imdbID}`);
