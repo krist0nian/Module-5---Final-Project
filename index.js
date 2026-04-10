@@ -1,3 +1,23 @@
+function renderMovies(filter) {
+    const movies = JSON.parse(localStorage.getItem("movies")) || [];
+    const filteredMovies = movies.filter(movie => movie.Title.toLowerCase().includes(filter.toLowerCase()));
+    resultsElement.innerHTML = "";
+
+    filteredMovies.forEach(movie => {
+        resultsElement.innerHTML += movieHTML(movie);
+    });
+    if (filter === 'A_TO_Z') {
+        filteredMovies.sort((a, b) => a.Title.localeCompare(b.Title));
+    } else if (filter === 'Z_TO_A') {
+        filteredMovies.sort((a, b) => b.Title.localeCompare(a.Title));
+    }   else if (filter === 'YEAR_ASC') {
+        filteredMovies.sort((a, b) => a.Year - b.Year);
+    }
+        else if (filter === 'YEAR_DESC') {
+        filteredMovies.sort((a, b) => b.Year - a.Year);
+    }
+}
+
 const inputElement = document.querySelector("#searchInput");
 const formElement = document.querySelector("form");
 const resultsElement = document.querySelector(".searchResults");
@@ -16,7 +36,7 @@ formElement.addEventListener("submit", async (event) => {
     movies.forEach(movie => {
         resultsElement.innerHTML += `
         <div class="movie__container">    
-            <div class="movie__card">
+            <div class="movie__card" onclick="showMovieInfo('${movie.imdbID}')">
             <img src="${movie.Poster}" onerror="this.src='./assets/noimageavailable.png';" alt="Movie Poster" class="movie__poster">
             <h4>${movie.Title}</h4>
             <p>${movie.Year}</p>
@@ -26,39 +46,22 @@ formElement.addEventListener("submit", async (event) => {
     });
 });
 
-async function renderMovies(filter) {
-
-    if (filter === 'A_TO_Z') {
-        movies.sort((a, b) => (a.movie.Title || a.movie.Title) - (b.movie.Title || b.movie.Title));
-    }
-    else if (filter === 'Z_TO_A') {
-        movies.sort((a, b) => (b.movie.Title || b.movie.Title) - (a.movie.Title || a.movie.Title));
-    }
-    else if (filter === 'NEWEST_TO_OLDEST') {
-        movies.sort((a, b) => b.movie.Year - a.movie.Year);
-    }
-    else if (filter === 'OLDEST_TO_NEWEST') {
-        movies.sort((a, b) => a.movie.Year - b.movie.Year);
-    }
-    const moviesHtml = movies.map((movie) => { 
-            return `<div class="movie__container">    
-                <div class="movie__card">
-                <img src="${movie.Poster}" alt="Movie Poster" class="movie__poster">
-                <h4>${movie.Title}</h4>
-                <p>${movie.Year}</p>
-                </div>
-            </div>
-            `;
-        }).join("");
-        
-    resultsElement.innerHTML = moviesHtml;
+function movieHTML(movie) {
+    return `
+    <div class="movie__container">    
+        <div class="movie__card" onclick="showMovieInfo('${movie.imdbID}')">
+        <img src="${movie.Poster}" onerror="this.src='./assets/noimageavailable.png';" alt="Movie Poster" class="movie__poster">
+        <h4>${movie.Title}</h4>
+        <p>${movie.Year}</p>
+        </div>
+    </div>
+    `;
 }
+
+function showMovieInfo(imdbID) {
+    window.location.href = `movie.html?imdbID=${imdbID}`;
+}   
 
 function filterMovies(event) {
     renderMovies(event.target.value);
 }
-
-setTimeout(() => {
-   renderMovies();
-});
-
