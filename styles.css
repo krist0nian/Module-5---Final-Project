@@ -80,10 +80,6 @@ li {
     color: whitesmoke;
 }
 
-.nav__link--primary:hover {
-    text-decoration: underline;
-}
-
 .btn__menu {
     background-color: transparent;
     font-size: 40px;
