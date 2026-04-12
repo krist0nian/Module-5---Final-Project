@@ -1,3 +1,11 @@
+function openMenu() {
+    document.body.classList += "menu--open"
+}
+
+function closeMenu () {
+    document.body.classList.remove('menu--open')
+}
+
 const inputElement = document.querySelector("#searchInput");
 const formElement = document.querySelector("form");
 const resultsElement = document.querySelector(".searchResults");
@@ -27,23 +35,27 @@ formElement.addEventListener("submit", async (event) => {
 });
 
 function renderMovies(filter) {
-    const movies = JSON.parse(localStorage.getItem("movies")) || [];
-    const filteredMovies = movies.filter(movie => movie.Title.toLowerCase().includes(filter.toLowerCase()));
-    resultsElement.innerHTML = "";
-
-    filteredMovies.forEach(movie => {
-        resultsElement.innerHTML += movieHTML(movie);
+    const movies = Array.from(resultsElement.querySelectorAll(".movie__card")).map(card => {
+        return {
+            Title: card.querySelector("h4").textContent,
+            Year: parseInt(card.querySelector("p").textContent),
+            imdbID: card.getAttribute("onclick").match(/'([^']+)'/)[1],
+            Poster: card.querySelector("img").src
+        };
     });
+    
     if (filter === 'A_TO_Z') {
-        filteredMovies.sort((a, b) => a.Title.localeCompare(b.Title));
+        movies.sort((a, b) => a.Title.localeCompare(b.Title));
     } else if (filter === 'Z_TO_A') {
-        filteredMovies.sort((a, b) => b.Title.localeCompare(a.Title));
+        movies.sort((a, b) => b.Title.localeCompare(a.Title));
     }   else if (filter === 'YEAR_ASC') {
-        filteredMovies.sort((a, b) => a.Year - b.Year);
+        movies.sort((a, b) => b.Year - a.Year);
     }
         else if (filter === 'YEAR_DESC') {
-        filteredMovies.sort((a, b) => b.Year - a.Year);
+        movies.sort((a, b) => a.Year - b.Year);
     }
+
+    resultsElement.innerHTML = movies.map(movie => movieHTML(movie)).join("");
 }
 
 function movieHTML(movie) {

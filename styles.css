@@ -88,7 +88,7 @@ li {
     background-color: transparent;
     font-size: 40px;
     border: none;
-    color: #7342d6;
+    color: black;
     display: none;
 }
 
@@ -322,7 +322,7 @@ select {
     font-size: 16px;
 }
 
-.movies {
+#movies {
     width: 100%;
     max-width: 1100px;
     display: flex;
@@ -330,6 +330,37 @@ select {
     justify-content: center;
     margin: 0 auto;
     padding-bottom: 32px;
+}
+
+.movies__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 60px;
+    font-size: 60px;
+    color: #7342d6;
+}
+
+.movies__loading--spinner {
+    display: none !important;
+}
+
+.movies__loading .movies__loading--spinner {
+    display: block !important;
+}
+
+.fa-spinner {
+    animation: rotate 500ms infinite linear;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .searchResults {
@@ -435,4 +466,87 @@ footer {
     font-size: 20px;
     margin-top: 28px;
     text-align: center;
+}
+
+/* MEDIA QUERIES FOR DIFFERENT SCREEN SIZES */
+
+@media (max-width: 768px) {
+    .nav__link {
+        font-size: 16px;
+        padding: 0;
+    }
+
+    .logo {
+    width: 80px;
+    margin-top: 12px;
+    }
+
+    .image__logo {
+    height: 340px;
+    width: 340px;
+    }
+
+    .introduction__title,
+    .introduction__description,
+    .about__title,
+    .categories__title {
+        font-size: 24px;
+    }
+
+    .introduction__description {
+        font-size: 16px;
+        padding-right: 24px;
+        padding-left: 24px;
+    }
+    
+    #about .about__para {
+        font-size: 16px;
+        padding-right: 24px;
+        padding-left: 24px;
+    }
+}
+
+@media (max-width: 550px) {
+    #search {
+        padding: 0 24px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .search__container {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .introduction__title,
+    .about__title,
+    .categories__title {
+        font-size: 28px;
+    }
+
+    .introduction__title {
+        padding-top: 12px;
+        padding-right: 24px;
+        padding-left: 24px;
+    }
+
+    .introduction__description,
+    .about__para {
+        font-size: 18px;
+    }
+
+    .logo {
+    width: 68px;
+    margin-top: 12px;
+    }
+
 }
