@@ -1,9 +1,9 @@
 function openMenu() {
-    document.body.classList += "menu--open"
+    document.body.classList.add('menu--open');
 }
 
 function closeMenu () {
-    document.body.classList.remove('menu--open')
+    document.body.classList.remove('menu--open');
 }
 
 const inputElement = document.querySelector("#searchInput");
@@ -13,15 +13,22 @@ const resultsElement = document.querySelector(".searchResults");
 formElement.addEventListener("submit", async (event) => {
     event.preventDefault(); 
     resultsElement.innerHTML = "";
-    const inputValue = inputElement.value;
-    const response = await fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=e18454d7&s=${inputValue}`,);
+    const inputValue = inputElement.value.trim();
+    if (!inputValue) return;
+    
+    try {
 
-    const data = await response.json();
+        const response = await fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=e18454d7&s=${inputValue}`,);
+    
+    if (!response.ok) throw new Error(`Network error: ${response.status}`);
+        const data = await response.json();
+    
     if (data.Response === "False") {
+        resultsElement.innerHTML = `<p>${data.Error || "No results found."}</p>`;
         return;
     }
-    const movies = data.Search;
-    movies.forEach(movie => {
+        const movies = data.Search || [];
+        movies.forEach(movie => {
         resultsElement.innerHTML += `
         <div class="movie__container">    
             <div class="movie__card" onclick="showMovieInfo('${movie.imdbID}')">
@@ -32,6 +39,10 @@ formElement.addEventListener("submit", async (event) => {
         </div>
         `;
     });
+        } catch (error) {
+        console.error("Fetch error:", error);
+        resultsElement.innerHTML = "<p>Sorry, we couldn't fetch results. Please try again later.</p>";
+    }
 });
 
 function renderMovies(filter) {

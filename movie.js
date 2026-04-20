@@ -1,9 +1,17 @@
 const API_URL = "https://www.omdbapi.com/?i=tt3896198&apikey=e18454d7";
 
 async function fetchMovieById(imdbID) {
-    const response = await fetch(`${API_URL}&i=${imdbID}`);
-    const data = await response.json();
-    return data;
+    if (!imdbID) throw new Error("No imdbID provided");
+    try {
+        const response = await fetch(`${API_URL}&i=${encodeURIComponent(imdbID)}`);
+        if (!response.ok) throw new Error(`Network error: ${response.status}`);
+        const data = await response.json();
+        if (data.Response === "False") throw new Error(data.Error || "Movie not found");
+        return data;
+    } catch (err) {
+        // rethrow so callers can handle/display a message
+        throw err;
+    }
 }
 
 function getImdbIDFromURL() {
@@ -13,7 +21,9 @@ function getImdbIDFromURL() {
 
 const imdbID = getImdbIDFromURL();
 
-fetchMovieById(imdbID).then(movie => {
+if (imdbID) {
+
+    fetchMovieById(imdbID).then(movie => {
     const movieInfoElement = document.querySelector(".movieInfo");
     movieInfoElement.innerHTML = `
     <div class="movie__container">
@@ -33,4 +43,7 @@ fetchMovieById(imdbID).then(movie => {
     const movieInfoElement = document.querySelector(".movieInfo");
     movieInfoElement.innerHTML = "<p>Sorry, we couldn't fetch the movie details. Please try again later.</p>";
 });
-
+} else {
+    const movieInfoElement = document.querySelector(".movieInfo");
+    movieInfoElement.innerHTML = "<p>No movie selected. Please go back and select a movie.</p>";
+}
