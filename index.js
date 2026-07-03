@@ -6,6 +6,8 @@ function closeMenu () {
     document.body.classList.remove('menu--open');
 }
 
+// Search for Movies Form
+
 const inputElement = document.querySelector("#searchInput");
 const formElement = document.querySelector("form");
 const resultsElement = document.querySelector(".searchResults");
@@ -45,6 +47,8 @@ formElement.addEventListener("submit", async (event) => {
     }
 });
 
+// Sort Movies Results
+
 function renderMovies(filter) {
     const movies = Array.from(resultsElement.querySelectorAll(".movie__card")).map(card => {
         return {
@@ -68,6 +72,8 @@ function renderMovies(filter) {
 
     resultsElement.innerHTML = movies.map(movie => movieHTML(movie)).join("");
 }
+
+// Display Individual Movie Info
 
 function movieHTML(movie) {
     return `

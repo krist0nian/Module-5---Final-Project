@@ -1,0 +1,72 @@
+.btn {
+    background-color: rgb(105, 107, 105);
+    color: black;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 16px;
+    margin-bottom: 20px;
+    margin-left: 24px;
+}
+
+body {
+    background-image: url(./assets/wallgray.png);
+    background-size: cover;
+}
+
+.btn:hover {
+    background-color: yellow;
+}
+
+h2 {
+    font-size: 28px;
+    text-decoration: underline;
+}
+
+p {
+    font-size: 20px;
+}
+
+.movieInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.movie__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(41, 37, 37);
+    padding: 20px;
+    border: 1px solid rgb(145, 144, 142);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 900px;
+    width: 100%;
+}
+.movie__card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+}
+
+.movie__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+}
+
+.movie__poster {
+    width: 330px;
+    height: 490px;
+    border-radius: 10px;
+    margin-right: 22px;
+}
