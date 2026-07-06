@@ -339,12 +339,12 @@ form {
     border: 2px solid #433f4d;
     border-radius: 4px;
     box-sizing: border-box;
-    background-color: rgba(236, 232, 232, 0.82);
+    background-color: white;
     color: black;
 }
 
 .btn__search {
-    background-color: rgb(94, 94, 91);
+    background-color: yellow;
     color: black;
     padding: 9px 9px;
     border: none;
@@ -357,12 +357,8 @@ form {
     max-width: 80px;
 }
 
-.btn__search:hover {
-    background-color: rgb(229, 233, 7)
-}   
-
 select {
-    background-color: rgb(202, 199, 199);
+    background-color: white;
     height: 40px;
     line-height: 40px;
     width: 100%;
@@ -375,6 +371,10 @@ select {
     outline: none;
     margin-left: 8px;
     font-size: 16px;
+    color: black;
+}
+
+option {
     color: black;
 }
 
